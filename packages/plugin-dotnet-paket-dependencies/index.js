@@ -27,19 +27,17 @@ function githubPaths({ target, hash, filePath }) {
 export default {
   name: 'DotNetPaketDependencies',
 
+  patterns: {
+    pathRegexes: [/paket\.dependencies$/, /paket\.local$/],
+    githubClasses: [],
+  },
+
   resolve(_path, [target, hash, filePath], _meta, regExp) {
     if (regExp === PAKET_DEPENDENCIES_GITHUB) {
       return githubPaths({ target, hash, filePath });
     }
 
     return nugetResolver({ target });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/paket\.dependencies$/, /paket\.local$/],
-      githubClasses: [],
-    };
   },
 
   getLinkRegexes() {

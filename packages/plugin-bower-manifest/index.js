@@ -26,9 +26,16 @@ function linkFile(blob, key, value) {
   return insertLink(blob, regex, this, { type: 'file' });
 }
 
+/** @typedef {import('@octolinker/core')} */
+
 export default {
   name: 'BowerManifest',
   needsContext: true,
+
+  patterns: {
+    pathRegexes: [/bower\.json$/],
+    githubClasses: [],
+  },
 
   resolve(path, [target], { type }) {
     if (type === 'file') {
@@ -42,13 +49,6 @@ export default {
     return [gitUrl({ target }), githubShorthand({ target })].map((url) =>
       resolverTrustedUrl({ target: url }),
     );
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/bower\.json$/],
-      githubClasses: [],
-    };
   },
 
   parseBlob(blob) {

@@ -4,6 +4,11 @@ import { hoogleSearch } from '@octolinker/resolver-hoogle-search';
 export default {
   name: 'Haskell',
 
+  patterns: {
+    pathRegexes: [/\.hs$/],
+    githubClasses: ['type-haskell'],
+  },
+
   resolve(path, [target]) {
     const filePath = target.replace(/\./g, '/');
     const basePath = path.split(/\/(src|lib|app|test)\//)[0];
@@ -16,13 +21,6 @@ export default {
       `{BASE_URL}${basePath}/${filePath}.hs`,
       hoogleSearch({ target }),
     ];
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.hs$/],
-      githubClasses: ['type-haskell'],
-    };
   },
 
   getLinkRegexes() {

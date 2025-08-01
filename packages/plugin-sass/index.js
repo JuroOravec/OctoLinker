@@ -7,6 +7,11 @@ import githubSearch from '@octolinker/resolver-github-search';
 export default {
   name: 'Sass',
 
+  patterns: {
+    pathRegexes: [/\.s[c|a]ss$/],
+    githubClasses: ['type-sass', 'highlight-source-sass'],
+  },
+
   resolve(path, [target]) {
     const { dir, name } = pathParse(target);
     const prefixedTarget = join(dir, `_${name}`);
@@ -17,13 +22,6 @@ export default {
       githubSearch({ path, target: `${prefixedTarget}.scss` }),
       githubSearch({ path, target: `${prefixedTarget}.sass` }),
     ];
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.s[c|a]ss$/],
-      githubClasses: ['type-sass', 'highlight-source-sass'],
-    };
   },
 
   getLinkRegexes() {

@@ -4,15 +4,13 @@ import liveResolverQuery from '@octolinker/resolver-live-query';
 export default {
   name: 'Rust',
 
-  resolve(path, [target]) {
-    return liveResolverQuery({ type: 'crates', target });
+  patterns: {
+    pathRegexes: [/\.rs$/],
+    githubClasses: ['type-rust', 'highlight-source-rust'],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/\.rs$/],
-      githubClasses: ['type-rust', 'highlight-source-rust'],
-    };
+  resolve(path, [target]) {
+    return liveResolverQuery({ type: 'crates', target });
   },
 
   getLinkRegexes() {

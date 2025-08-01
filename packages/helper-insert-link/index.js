@@ -71,6 +71,10 @@ function injectUrl(node, value, startOffset, endOffset) {
   return el;
 }
 
+// TODO - GO OVER THIS IN DEPTH
+// TODO - GO OVER THIS IN DEPTH
+// TODO - GO OVER THIS IN DEPTH
+// TODO - GO OVER THIS IN DEPTH
 export default function (blob, regex, plugin, meta = {}) {
   if (!blob) {
     throw new Error('must be called with a blob');

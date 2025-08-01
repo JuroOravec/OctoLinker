@@ -5,6 +5,11 @@ import mappingList from './mapping';
 export default {
   name: 'PHP',
 
+  getPattern: {
+    pathRegexes: [/\.php$/],
+    githubClasses: ['type-php', 'highlight-text-html-php'],
+  },
+
   resolve(path, [target], meta, regExp) {
     const linkMapping = mappingList.find(({ importPath }) =>
       target.startsWith(`${importPath}\\`),
@@ -54,13 +59,6 @@ export default {
     return resolverTrustedUrl({
       target: `https://www.php.net/manual/en/class.${target.toLowerCase()}.php`,
     });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.php$/],
-      githubClasses: ['type-php', 'highlight-text-html-php'],
-    };
   },
 
   getLinkRegexes() {

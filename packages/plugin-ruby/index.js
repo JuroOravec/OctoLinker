@@ -9,6 +9,11 @@ import relativeFile from '@octolinker/resolver-relative-file';
 export default {
   name: 'Ruby',
 
+  patterns: {
+    pathRegexes: [/\.rb$/],
+    githubClasses: ['type-ruby', 'highlight-source-ruby'],
+  },
+
   resolve(path, [target], meta, regex) {
     const isPath = !!target.match(/\//);
     // https://github.com/github/pages-gem/blob/master/lib/github-pages/dependencies.rb
@@ -33,13 +38,6 @@ export default {
     }
 
     return liveResolverQuery({ type: 'rubygems', target });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.rb$/],
-      githubClasses: ['type-ruby', 'highlight-source-ruby'],
-    };
   },
 
   getLinkRegexes() {

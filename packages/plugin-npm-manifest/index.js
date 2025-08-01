@@ -33,6 +33,11 @@ export default {
   name: 'NpmManifest',
   needsContext: true,
 
+  patterns: {
+    pathRegexes: [/package\.json$/],
+    githubClasses: [],
+  },
+
   resolve(path, values, { type }) {
     if (type === 'file') {
       return javascriptFile({ target: values[0], path });
@@ -52,13 +57,6 @@ export default {
       githubShorthand({ target: values[1] }),
       gitUrl({ target: values[1] }),
     ].map((url) => url && resolverTrustedUrl({ target: url }));
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/package\.json$/],
-      githubClasses: [],
-    };
   },
 
   parseBlob(blob) {

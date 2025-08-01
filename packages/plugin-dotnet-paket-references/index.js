@@ -4,15 +4,13 @@ import nugetResolver from '@octolinker/resolver-nuget';
 export default {
   name: 'DotNetPaketReferences',
 
-  resolve(_path, [target]) {
-    return nugetResolver({ target });
+  patterns: {
+    pathRegexes: [/paket\.references$/],
+    githubClasses: [],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/paket\.references$/],
-      githubClasses: [],
-    };
+  resolve(_path, [target]) {
+    return nugetResolver({ target });
   },
 
   getLinkRegexes() {

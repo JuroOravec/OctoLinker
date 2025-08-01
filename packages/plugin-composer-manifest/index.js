@@ -17,15 +17,13 @@ export default {
   name: 'Composer',
   needsContext: true,
 
-  resolve(path, [target]) {
-    return liveResolverQuery({ type: 'composer', target });
+  patterns: {
+    pathRegexes: [/composer\.json$/],
+    githubClasses: [],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/composer\.json$/],
-      githubClasses: [],
-    };
+  resolve(path, [target]) {
+    return liveResolverQuery({ type: 'composer', target });
   },
 
   parseBlob(blob) {

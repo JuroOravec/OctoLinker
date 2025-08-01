@@ -11,7 +11,7 @@ describe('load-plugins', () => {
       assert.equal(typeof plugin, 'object');
       assert(plugin.name);
       assert(plugin.resolve);
-      assert(plugin.getPattern);
+      assert(plugin.patterns);
       assert(plugin.parseBlob || plugin.getLinkRegexes);
     });
   });
@@ -29,7 +29,7 @@ describe('load-plugins', () => {
       });
 
       const presets = Object.values(loadPlugins).map((plugin) =>
-        plugin.getPattern(),
+        plugin.patterns,
       );
       for (const [lang, value] of Object.entries(presets)) {
         value.githubClasses.forEach((className) => {

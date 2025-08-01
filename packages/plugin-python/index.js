@@ -5,6 +5,11 @@ import relativeFile from '@octolinker/resolver-relative-file';
 export default {
   name: 'Python',
 
+  patterns: {
+    pathRegexes: [/\.py$/],
+    githubClasses: ['type-python', 'highlight-source-python'],
+  },
+
   resolve(path, [target, subTarget]) {
     const isLocalFile = target.startsWith('.');
     const normalizedTarget = target.replace(/\./g, '/');
@@ -98,13 +103,6 @@ export default {
         type: 'pypi',
       }),
     ];
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.py$/],
-      githubClasses: ['type-python', 'highlight-source-python'],
-    };
   },
 
   getLinkRegexes() {

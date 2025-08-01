@@ -20,6 +20,11 @@ export function isWorkflowFile(path) {
 export default {
   name: 'GitHubActions',
 
+  patterns: {
+    pathRegexes: [/\.ya?ml$/],
+    githubClasses: [],
+  },
+
   resolve(path, [target, version]) {
     if (!isWorkflowFile(path)) {
       return '';
@@ -55,13 +60,6 @@ export default {
     }
 
     return `{BASE_URL}/${target}`;
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.ya?ml$/],
-      githubClasses: [],
-    };
   },
 
   getLinkRegexes() {

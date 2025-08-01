@@ -4,15 +4,13 @@ import liveResolverQuery from '@octolinker/resolver-live-query';
 export default {
   name: 'Java',
 
-  resolve(path, [target]) {
-    return liveResolverQuery({ type: 'java', target });
+  patterns: {
+    pathRegexes: [/\.java$/],
+    githubClasses: ['type-java', 'highlight-source-java'],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/\.java$/],
-      githubClasses: ['type-java', 'highlight-source-java'],
-    };
+  resolve(path, [target]) {
+    return liveResolverQuery({ type: 'java', target });
   },
 
   getLinkRegexes() {

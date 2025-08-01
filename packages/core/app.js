@@ -4,15 +4,16 @@ import insertLink from '@octolinker/helper-insert-link';
 import * as storage from '@octolinker/helper-settings';
 import helperSortUrls from '@octolinker/helper-sort-urls';
 import normaliseResolverResults from '@octolinker/helper-normalise-resolver-results';
-import Plugins from './plugin-manager.js';
+import { Plugins } from './plugin-manager.js';
 import debugMode from './debug-mode.js';
 import loader from './loader.js';
-import * as loadPlugins from './load-plugins';
+import * as allPlugins from './load-plugins';
 import './stats.js';
 
 const blobReader = new BlobReader();
-const pluginManager = new Plugins(loadPlugins);
+const pluginManager = new Plugins(allPlugins);
 
+/** @param {Document|HTMLElement} rootElement */
 async function run(rootElement) {
   const blobs = blobReader.read(rootElement);
 

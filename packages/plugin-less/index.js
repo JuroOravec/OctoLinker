@@ -8,6 +8,11 @@ import githubSearch from '@octolinker/resolver-github-search';
 export default {
   name: 'Less',
 
+  patterns: {
+    pathRegexes: [/\.less$/],
+    githubClasses: ['type-less', 'highlight-source-css-less'],
+  },
+
   resolve(path, [target]) {
     const list = [relativeFile({ path, target })];
 
@@ -18,13 +23,6 @@ export default {
     list.push(githubSearch({ path, target }));
 
     return list;
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.less$/],
-      githubClasses: ['type-less', 'highlight-source-css-less'],
-    };
   },
 
   getLinkRegexes() {

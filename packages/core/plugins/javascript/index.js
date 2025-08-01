@@ -1,5 +1,8 @@
+// TODO UPDATE IMPORTS
+
 import { extname } from 'path';
 import concatMap from 'concat-map';
+
 import {
   REQUIRE,
   IMPORT,
@@ -9,6 +12,8 @@ import liveResolverQuery from '@octolinker/resolver-live-query';
 import resolverTrustedUrl from '@octolinker/resolver-trusted-url';
 import relativeFile from '@octolinker/resolver-relative-file';
 import builtinsDocs from './builtins-docs.js';
+import { definePlugin } from '../../plugin';
+
 
 function getTopModuleName(target) {
   const isScoped = target.startsWith('@');
@@ -70,8 +75,28 @@ function isURLImport(target) {
   }
 }
 
-export default {
+export const plugin = definePlugin({
   name: 'JavaScript',
+
+  patterns: {
+    pathRegexes: [
+      /\.jsx?$/,
+      /\.es6$/,
+      // CoffeeScript
+      /\.coffee$/,
+      /\.vue$/,
+      /\.svelte$/,
+    ],
+    githubClasses: [
+      'type-javascript',
+      'type-jsx',
+      'highlight-source-js',
+      // CoffeeScript
+      'type-coffeescript',
+      'highlight-source-coffee',
+      'type-vue',
+    ],
+  },
 
   resolve(path, [target]) {
     if (target.startsWith('node:')) {
@@ -101,29 +126,7 @@ export default {
     return liveResolverQuery({ type: 'npm', target: topModuleName });
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [
-        /\.jsx?$/,
-        /\.es6$/,
-        // CoffeeScript
-        /\.coffee$/,
-        /\.vue$/,
-        /\.svelte$/,
-      ],
-      githubClasses: [
-        'type-javascript',
-        'type-jsx',
-        'highlight-source-js',
-        // CoffeeScript
-        'type-coffeescript',
-        'highlight-source-coffee',
-        'type-vue',
-      ],
-    };
-  },
-
   getLinkRegexes() {
     return [REQUIRE, IMPORT, EXPORT];
   },
-};
+});

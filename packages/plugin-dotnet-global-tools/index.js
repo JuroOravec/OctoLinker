@@ -12,15 +12,13 @@ export default {
   name: 'DotNetCoreGlobalTools',
   needsContext: true,
 
-  resolve(path, [target]) {
-    return nugetResolver({ target });
+  patterns: {
+    pathRegexes: [/dotnet-tools\.json$/],
+    githubClasses: [],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/dotnet-tools\.json$/],
-      githubClasses: [],
-    };
+  resolve(path, [target]) {
+    return nugetResolver({ target });
   },
 
   parseBlob(blob) {

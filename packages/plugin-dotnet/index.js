@@ -8,20 +8,18 @@ import nugetResolver from '@octolinker/resolver-nuget';
 export default {
   name: 'DotNet',
 
-  resolve(path, [target]) {
-    return nugetResolver({ target });
+  patterns: {
+    pathRegexes: [
+      /packages\.config$/,
+      /\.(cs|fs|vb)proj$/,
+      /\.props$/,
+      /\.targets$/,
+    ],
+    githubClasses: [],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [
-        /packages\.config$/,
-        /\.(cs|fs|vb)proj$/,
-        /\.props$/,
-        /\.targets$/,
-      ],
-      githubClasses: [],
-    };
+  resolve(path, [target]) {
+    return nugetResolver({ target });
   },
 
   getLinkRegexes() {

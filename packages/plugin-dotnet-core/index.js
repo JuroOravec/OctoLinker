@@ -13,15 +13,13 @@ export default {
   name: 'DotNetCore',
   needsContext: true,
 
-  resolve(path, [target]) {
-    return nugetResolver({ target });
+  patterns: {
+    pathRegexes: [/project\.json$/],
+    githubClasses: [],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/project\.json$/],
-      githubClasses: [],
-    };
+  resolve(path, [target]) {
+    return nugetResolver({ target });
   },
 
   parseBlob(blob) {

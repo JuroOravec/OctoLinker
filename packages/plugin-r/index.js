@@ -7,15 +7,13 @@ import liveResolverQuery from '@octolinker/resolver-live-query';
 export default {
   name: 'r',
 
-  resolve(path, [target]) {
-    return liveResolverQuery({ type: 'cran', target });
+  pattern: {
+    pathRegexes: [/\.R$/, /\.Rmd$/],
+    githubClasses: ['type-r', 'highlight-source-r'],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/\.R$/, /\.Rmd$/],
-      githubClasses: ['type-r', 'highlight-source-r'],
-    };
+  resolve(path, [target]) {
+    return liveResolverQuery({ type: 'cran', target });
   },
 
   getLinkRegexes() {

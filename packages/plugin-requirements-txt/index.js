@@ -4,18 +4,16 @@ import liveResolverQuery from '@octolinker/resolver-live-query';
 export default {
   name: 'RequirementsTxt',
 
+  pattern: {
+    pathRegexes: [/requirements\.txt$/],
+    githubClasses: [],
+  },
+
   resolve(path, [target]) {
     return liveResolverQuery({
       target,
       type: 'pypi',
     });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/requirements\.txt$/],
-      githubClasses: [],
-    };
   },
 
   getLinkRegexes() {

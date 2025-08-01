@@ -7,15 +7,13 @@ import relativeFile from '@octolinker/resolver-relative-file';
 export default {
   name: 'HTML',
 
-  resolve(path, [target]) {
-    return relativeFile({ path, target });
+  patterns: {
+    pathRegexes: [/\.html?$/],
+    githubClasses: ['type-html'],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/\.html?$/],
-      githubClasses: ['type-html'],
-    };
+  resolve(path, [target]) {
+    return relativeFile({ path, target });
   },
 
   getLinkRegexes() {

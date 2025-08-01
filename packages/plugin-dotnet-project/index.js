@@ -4,18 +4,16 @@ import relativeFile from '@octolinker/resolver-relative-file';
 export default {
   name: 'DotNetProject',
 
+  patterns: {
+    pathRegexes: [/\.(cs|fs|vb)proj$/],
+    githubClasses: [],
+  },
+
   resolve(path, [target]) {
     // Both / and \ are supported as the path separator so we need to normalize it to /
     target = target.replace(/\\/g, '/');
 
     return relativeFile({ path, target });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.(cs|fs|vb)proj$/],
-      githubClasses: [],
-    };
   },
 
   getLinkRegexes() {

@@ -1,22 +1,28 @@
+/**
+ * @param {string} selector
+ * @param {HTMLElement|Document} rootElement
+ */
 function $(selector, rootElement = document) {
   return rootElement.querySelector(selector);
 }
 
+/**
+ * @param {string} selector
+ * @param {HTMLElement|Document} rootElement
+ */
 function $$(selector, rootElement = document) {
   return [...rootElement.querySelectorAll(selector)];
 }
 
-function getBlobCodeInner(el) {
-  if ($$('.react-blob-row').length) {
-    return $$('.react-blob-row', el);
-  }
-
-  return $$('.blob-code-inner', el);
-}
-
-function getBlobWrapper(rootElement) {
+/**
+ * @param {HTMLElement|Document} rootElement
+ */
+function getBlobWrappers(rootElement) {
   return $$(
-    `
+    // TODO - COPY+PASTE THE CURRENT HTML OF https://github.com/OctoLinker/OctoLinker/blob/cf7ec7de084da1c946c3450929d911800591e7e6/packages/core/app.js
+    //        FOR REFERENCE.
+    '.react-code-file-contents' // Latest selector as of 2025-08-01
+    + `
       [data-selector="repos-split-pane-content"] table,
       .blob-wrapper,
       .js-blob-wrapper,
@@ -60,11 +66,28 @@ function getParentSha() {
   return el ? el.textContent : null;
 }
 
+/**
+ * Get file path like
+ * - `'/OctoLinker/OctoLinker/tree/main/packages'`
+ * - `'/OctoLinker/OctoLinker/blob/cf7ec7de084da1c946c3450929d911800591e7e6/packages/core/app.js'`
+ * (AKA `/<username>/<repo>/tree/<branch>/<path>` or `/<username>/<repo>/blob/<commit>/<path>`)
+ * @param {HTMLElement} el
+ * @returns {string|undefined}
+ */
 function getPath(el) {
+  // TODO - WHY NOT USE URL INSTEAD OF THIS??
+  // TODO - WHY NOT USE URL INSTEAD OF THIS??
+
   // New code view experience
-  if ($('react-app')?.attributes['initial-path']?.value) {
-    return $('react-app').attributes['initial-path'].value;
+  const initPathValue = $('react-app')?.attributes['initial-path']?.value;
+  if (initPathValue) {
+    return initPathValue;
   }
+
+  // TODO - I HAVEN'T CHECKED THE CORRECTNESS OF THE BELOW
+  // TODO - I HAVEN'T CHECKED THE CORRECTNESS OF THE BELOW
+  // TODO - I HAVEN'T CHECKED THE CORRECTNESS OF THE BELOW
+  // TODO - I HAVEN'T CHECKED THE CORRECTNESS OF THE BELOW
 
   // When current page is a diff view get path from "View" button
   let rootSelector =
@@ -193,7 +216,11 @@ function readLine(el) {
   return ret;
 }
 
+/** @param {HTMLElement} el */
 function readLines(el) {
+  // TODO - WHAT PAGE IS THIS SUPPOSED TO WORK ON??
+  // TODO - WHAT PAGE IS THIS SUPPOSED TO WORK ON??
+  // TODO - WHAT PAGE IS THIS SUPPOSED TO WORK ON??
   if (
     el.classList.contains('highlight') &&
     el.firstElementChild &&
@@ -208,9 +235,18 @@ function readLines(el) {
     }
   }
 
-  return getBlobCodeInner(el)
+  // TODO - DOESN'T WORK EITHER???
+  // TODO - DOESN'T WORK EITHER???
+  /** @type {HTMLElement[]} */
+  let blobEls = []
+  if ($$('.react-blob-row').length) {
+    blobEls = $$('.react-blob-row', el);
+  }
+  blobEls = $$('.blob-code-inner', el);
+
+  return blobEls
     .map(readLine)
     .filter((line) => !!line);
 }
 
-export { getPath, getBlobWrapper, readLines, getParentSha, isGist };
+export { getPath, getBlobWrappers, readLines, getParentSha, isGist };

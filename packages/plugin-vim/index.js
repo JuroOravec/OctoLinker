@@ -5,6 +5,19 @@ import { VIM_PLUGIN } from '@octolinker/helper-grammar-regex-collection';
 export default {
   name: 'Vim',
 
+  patterns: {
+    pathRegexes: [
+      '.vimrc$',
+      '.gvimrc$',
+      '.vim$',
+      // Sometimes there's no leading dot in .vimrc and .gvimrc, for example:
+      // https://github.com/gmarik/vimfiles/blob/1f4f26d42f54443f1158e0009746a56b9a28b053/vimrc#L136
+      '/vimrc$',
+      '/gvimrc$',
+    ],
+    githubClasses: ['type-viml', 'highlight-source-viml'],
+  },
+
   resolve(path, [target]) {
     // Logic adapted from https://github.com/VundleVim/Vundle.vim/blob/11fdc428fe741f4f6974624ad76ab7c2b503b73e/doc/vundle.txt#L196
     const components = target.split('/');
@@ -20,21 +33,6 @@ export default {
     // Assume it's a URL otherwise. We can't link to git/ssh, so change to https
     // and hope it works.
     return giturl.parse(target);
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [
-        '.vimrc$',
-        '.gvimrc$',
-        '.vim$',
-        // Sometimes there's no leading dot in .vimrc and .gvimrc, for example:
-        // https://github.com/gmarik/vimfiles/blob/1f4f26d42f54443f1158e0009746a56b9a28b053/vimrc#L136
-        '/vimrc$',
-        '/gvimrc$',
-      ],
-      githubClasses: ['type-viml', 'highlight-source-viml'],
-    };
   },
 
   getLinkRegexes() {

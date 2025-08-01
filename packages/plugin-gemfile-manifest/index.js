@@ -4,18 +4,16 @@ import liveResolverQuery from '@octolinker/resolver-live-query';
 export default {
   name: 'Rubygems',
 
+  patterns: {
+    pathRegexes: [/Gemfile$/],
+    githubClasses: [],
+  },
+
   resolve(path, [target]) {
     return liveResolverQuery({
       target: target.split('.')[0],
       type: 'rubygems',
     });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/Gemfile$/],
-      githubClasses: [],
-    };
   },
 
   getLinkRegexes() {

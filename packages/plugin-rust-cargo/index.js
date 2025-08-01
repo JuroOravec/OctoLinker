@@ -25,15 +25,13 @@ export default {
   name: 'RustCargo',
   needsContext: true,
 
-  resolve(path, values) {
-    return liveResolverQuery({ type: 'crates', target: values[0] });
+  patterns: {
+    pathRegexes: [/cargo\.toml/i],
+    githubClasses: [],
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/cargo\.toml/i],
-      githubClasses: [],
-    };
+  resolve(path, values) {
+    return liveResolverQuery({ type: 'crates', target: values[0] });
   },
 
   parseBlob(blob) {

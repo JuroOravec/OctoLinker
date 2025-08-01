@@ -34,19 +34,17 @@ export function dockerUrl(target) {
 export default {
   name: 'Docker',
 
+  patterns: {
+    pathRegexes: [/Dockerfile$/],
+    githubClasses: ['type-dockerfile', 'highlight-source-dockerfile'],
+  },
+
   resolve(path, [target], meta, regex) {
     if (regex === DOCKER_ENTRYPOINT) {
       return relativeFile({ path, target });
     }
 
     return dockerUrl(target);
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/Dockerfile$/],
-      githubClasses: ['type-dockerfile', 'highlight-source-dockerfile'],
-    };
   },
 
   getLinkRegexes() {

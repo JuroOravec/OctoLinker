@@ -12,6 +12,11 @@ function getTopModuleName(target) {
 export default {
   name: 'Solidity',
 
+  patterns: {
+    pathRegexes: [/\.sol$/],
+    githubClasses: ['type-solidity', 'highlight-source-solidity'],
+  },
+
   resolve(path, [target]) {
     let result;
     if (target.match(/^\.\.?[\\|\/]?/) !== null) {
@@ -23,13 +28,6 @@ export default {
       });
     }
     return result;
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.sol$/],
-      githubClasses: ['type-solidity', 'highlight-source-solidity'],
-    };
   },
 
   getLinkRegexes() {

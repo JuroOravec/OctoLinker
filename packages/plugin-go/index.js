@@ -37,6 +37,11 @@ function githubUrls(url) {
 export default {
   name: 'Go',
 
+  patterns: {
+    pathRegexes: [/\.go$/, /go\.mod$/],
+    githubClasses: ['type-go', 'highlight-source-go'],
+  },
+
   resolve(path, [target]) {
     const isPath = !!target.match(/^\.\.?[\\|\/]?/);
 
@@ -55,13 +60,10 @@ export default {
     ];
   },
 
-  getPattern() {
-    return {
-      pathRegexes: [/\.go$/, /go\.mod$/],
-      githubClasses: ['type-go', 'highlight-source-go'],
-    };
-  },
-
+  // TOOD - THIS CAN BE ACTUALLY MADE INTO STATIC PROPERTY!!!
+  // THE ONLY COMPLICATION IS GOLANG, BUT THERE, EVEN AT THE END OF THE DAY,
+  // THE REGEX CONTAINS ONLY URLs THAT START WITH ALLOWED DOMAINS.
+  // SO INSTEAD THE REGEXES CAN BE SET TO INCLUDE THOSE FROM THE GET-GO
   getLinkRegexes(blob) {
     return go(blob.toString());
   },

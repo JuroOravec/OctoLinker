@@ -5,6 +5,11 @@ import resolverTrustedUrl from '@octolinker/resolver-trusted-url';
 export default {
   name: 'GithubCodeowners',
 
+  patterns: {
+    pathRegexes: [/\.github\/CODEOWNERS$/],
+    githubClasses: [],
+  },
+
   resolve(path, [target]) {
     if (target.endsWith('/**')) {
       target = target.replace('/**', '');
@@ -32,13 +37,6 @@ export default {
     }
 
     return relativeFile({ path, target });
-  },
-
-  getPattern() {
-    return {
-      pathRegexes: [/\.github\/CODEOWNERS$/],
-      githubClasses: [],
-    };
   },
 
   getLinkRegexes() {
